@@ -6,6 +6,7 @@ import { signals } from "@/data/signals";
 import { editorialDesks } from "@/data/desks";
 import { constitutionalDesks } from "@/data/constitutional-desks";
 import { countries } from "@/data/countries";
+import { HERO_URL, articleImages } from "@/data/images";
 
 const lead = articles[0];
 
@@ -25,7 +26,7 @@ export default function HomePage() {
 
       {/* HERO IMAGE */}
       <div className="relative h-[280px] sm:h-[340px] overflow-hidden">
-        <img src="/images/hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={HERO_URL} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#05070B]/40 via-[#05070B]/60 to-[#05070B]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-8">
           <div>

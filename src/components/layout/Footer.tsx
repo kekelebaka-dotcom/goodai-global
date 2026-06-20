@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LOGO_URL } from "@/data/images";
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           <div>
-            <img src="/images/logo.png" alt="Good AI Global" className="h-8 w-auto mb-3" />
+            <img src={LOGO_URL} alt="Good AI Global" className="h-8 w-auto mb-3" />
             <p className="text-sm text-[#6B6862] leading-relaxed max-w-xs">
               Strategic intelligence for Africa&apos;s AI future. Covering the
               systems, institutions, and power shifts shaping artificial

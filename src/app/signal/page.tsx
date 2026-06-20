@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { articles } from "@/data/articles";
-import { articleImages } from "@/data/article-images";
+import { articleImages } from "@/data/images";
 
 export default function SignalPage() {
   const featured = articles[0];
