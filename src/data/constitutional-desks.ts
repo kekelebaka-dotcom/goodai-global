@@ -1,0 +1,12 @@
+import { ConstitutionalDesk } from "@/lib/types";
+
+export const constitutionalDesks: ConstitutionalDesk[] = [
+  { id: "policy-readiness", name: "AI Policy & State Readiness", status: "red", constitutionalSection: "Section 195(1)", finding: "SA draft AI policy withdrawn April 2026 after AI-generated citations. Revised policy not until January 2027.", source: "Reuters (2026)", tier: 5, tierLabel: "Constitutional Significance" },
+  { id: "inequality", name: "Inequality & AI Access", status: "red", constitutionalSection: "Section 9", finding: "Gini coefficient 0.65. Broadband rank 115/152. Data costs above UN affordability threshold.", source: "Stats SA, ICASA (2026)", tier: 5, tierLabel: "Constitutional Significance" },
+  { id: "infrastructure", name: "Digital Infrastructure", status: "amber", constitutionalSection: "Section 27, 29", finding: "Fixed broadband penetration 12%. Load shedding disrupts AI access across communities.", source: "ICASA (2026)", tier: 4, tierLabel: "Research Grade" },
+  { id: "education", name: "Education & Youth", status: "red", constitutionalSection: "Section 29, 22", finding: "Youth unemployment 45.8% (4.7M). AI skills divide widening between resourced and under-resourced learners.", source: "Stats SA QLFS (2026)", tier: 5, tierLabel: "Court-Ready" },
+  { id: "employment", name: "Employment & Displacement", status: "red", constitutionalSection: "Section 22, 23", finding: "Unemployment 32.7%. 40% of SA businesses already use AI for recruitment, risking algorithmic bias.", source: "Stats SA, Deloitte (2026)", tier: 4, tierLabel: "Research Grade" },
+  { id: "municipal", name: "Municipal AI Gap", status: "green", constitutionalSection: "Section 152, 195", finding: "Only 16% of municipalities audit-clean. Ubuntu Town pilot across 5 initial towns generating evidence.", source: "Auditor-General (2024)", tier: 4, tierLabel: "Active Pilot" },
+  { id: "privacy", name: "Privacy & Automated Decisions", status: "amber", constitutionalSection: "Section 14, 33", finding: "POPIA Section 71 does not cover generative AI, AI-assisted human decisions, or public-sector AI procurement.", source: "POPIA Act", tier: 5, tierLabel: "Constitutional Significance" },
+  { id: "remedies", name: "Constitutional Remedies", status: "green", constitutionalSection: "Section 38, 172", finding: "Section 38(d) public interest litigation. Grootboom, Mazibuko, SASSA precedents support structural relief.", source: "Constitution of SA (1996)", tier: 5, tierLabel: "Litigation Pathway Ready" },
+];
