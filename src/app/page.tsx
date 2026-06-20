@@ -23,8 +23,19 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      {/* HERO — Lead Story + Signals Sidebar */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+      {/* HERO IMAGE */}
+      <div className="relative h-[280px] sm:h-[340px] overflow-hidden">
+        <img src="/images/hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#05070B]/40 via-[#05070B]/60 to-[#05070B]" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end pb-8">
+          <div>
+            <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#F4B63D] font-semibold">Strategic Intelligence for Africa&apos;s AI Future</span>
+          </div>
+        </div>
+      </div>
+
+      {/* LEAD STORY + SIGNALS SIDEBAR */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
         <div className="flex items-center gap-2 mb-6">
           <span className="w-6 h-px bg-[#F4B63D]" />
           <span className="font-mono text-[11px] tracking-[0.12em] uppercase text-[#F4B63D] font-medium">
