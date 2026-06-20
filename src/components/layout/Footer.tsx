@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,11 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           <div>
-            <div className="font-mono text-sm tracking-[0.2em] uppercase mb-3">
-              <span className="text-[#A8A49E]">Good</span>
-              <span className="text-[#F4B63D]">AI</span>
-              <span className="text-[#A8A49E]"> Global</span>
-            </div>
+            <Image src="/logo.png" alt="Good AI Global" width={120} height={45} className="h-8 w-auto mb-3" />
             <p className="text-sm text-[#6B6862] leading-relaxed max-w-xs">
               Strategic intelligence for Africa&apos;s AI future. Covering the
               systems, institutions, and power shifts shaping artificial
