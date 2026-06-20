@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -7,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           <div>
-            <Image src="/logo.png" alt="Good AI Global" width={120} height={45} className="h-8 w-auto mb-3" />
+            <img src="/images/logo.png" alt="Good AI Global" className="h-8 w-auto mb-3" />
             <p className="text-sm text-[#6B6862] leading-relaxed max-w-xs">
               Strategic intelligence for Africa&apos;s AI future. Covering the
               systems, institutions, and power shifts shaping artificial
@@ -15,9 +14,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">
-              Platform
-            </h4>
+            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">Platform</h4>
             <div className="space-y-2">
               <Link href="/signal" className="block text-sm text-[#6B6862] hover:text-[#F4B63D] transition-colors">Signal Briefings</Link>
               <Link href="/intelligence" className="block text-sm text-[#6B6862] hover:text-[#F4B63D] transition-colors">Media Intelligence</Link>
@@ -26,9 +23,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">
-              Desks
-            </h4>
+            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">Desks</h4>
             <div className="space-y-2">
               <span className="block text-sm text-[#6B6862]">AI &amp; State Power</span>
               <span className="block text-sm text-[#6B6862]">Policy &amp; Governance</span>
@@ -38,9 +33,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">
-              Institution
-            </h4>
+            <h4 className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#A8A49E] mb-4 font-semibold">Institution</h4>
             <div className="space-y-2">
               <Link href="/about" className="block text-sm text-[#6B6862] hover:text-[#F4B63D] transition-colors">About</Link>
               <Link href="/contact" className="block text-sm text-[#6B6862] hover:text-[#F4B63D] transition-colors">Contact</Link>
@@ -49,18 +42,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-[rgba(240,237,232,0.08)]">
-          <p className="text-xs text-[#6B6862]">
-            &copy; 2026 Good AI Global. Johannesburg. Strategic intelligence for
-            Africa&apos;s AI future.
-          </p>
-          <a
-            href="https://www.linkedin.com/company/goodai-global/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-[#6B6862] hover:text-[#F4B63D] transition-colors mt-2 sm:mt-0"
-          >
-            LinkedIn
-          </a>
+          <p className="text-xs text-[#6B6862]">&copy; 2026 Good AI Global. Johannesburg. Strategic intelligence for Africa&apos;s AI future.</p>
+          <a href="https://www.linkedin.com/company/goodai-global/" target="_blank" rel="noopener noreferrer" className="text-xs text-[#6B6862] hover:text-[#F4B63D] transition-colors mt-2 sm:mt-0">LinkedIn</a>
         </div>
       </div>
     </footer>

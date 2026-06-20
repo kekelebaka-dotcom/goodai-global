@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -17,8 +16,8 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-[#05070B]/85 backdrop-blur-xl border-b border-[rgba(240,237,232,0.08)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Good AI Global" width={140} height={52} className="h-9 w-auto" priority />
+        <Link href="/" className="flex items-center">
+          <img src="/images/logo.png" alt="Good AI Global" className="h-9 w-auto" />
         </Link>
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
