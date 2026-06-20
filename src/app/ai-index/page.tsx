@@ -66,10 +66,13 @@ export default function IndexPage() {
           ))}
         </div>
 
-        <div className="text-center">
+        <div className="text-center space-y-3">
           <span className="inline-block font-mono text-[10px] tracking-wider uppercase px-4 py-2 rounded border border-[rgba(244,182,61,0.25)] text-[#F4B63D] bg-[rgba(244,182,61,0.05)]">
             Full Index — Coming Q3 2026
           </span>
+          <p className="text-[10px] text-[#6B6862] max-w-md mx-auto">
+            Scores shown are preliminary assessments based on publicly available data. Full methodology and verified country assessments will be published with the complete index.
+          </p>
         </div>
       </section>
       <Footer />
