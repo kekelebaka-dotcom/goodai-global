@@ -1,0 +1,2 @@
+# goodai-global
+goodai-global
