@@ -8,8 +8,9 @@ export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = articles.find((a) => a.slug === params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
   if (!article) return notFound();
 
   const related = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
@@ -35,13 +36,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        <div className="prose-custom">
+        <div>
           {paragraphs.map((p, i) => (
             <p key={i} className="text-[#A8A49E] text-base sm:text-lg leading-[1.8] mb-6">{p}</p>
           ))}
         </div>
 
-        {/* Related */}
         <div className="mt-16 pt-8 border-t border-[rgba(240,237,232,0.08)]">
           <h3 className="font-mono text-[11px] tracking-[0.12em] uppercase text-[#F4B63D] mb-6">More from the Signal Desk</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
