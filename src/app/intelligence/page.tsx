@@ -15,9 +15,9 @@ const pipelineSteps = [
 ];
 
 const sources = [
-  { name: "SA Parliamentary Audio", type: "Radio", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 24, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "2h ago" },
-  { name: "SABC News Radio", type: "Radio", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 68, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "45m ago" },
-  { name: "EWN Radio", type: "Radio", status: "Monitoring", provider: "AssemblyAI Universal-2", transcripts: 55, cost: "$3.60/day", retention: "Hot (72h)", lastUpdate: "1h ago" },
+  { name: "Parliament TV — Portfolio Committee on Communications", type: "Video", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 24, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "2h ago" },
+  { name: "SABC News — Morning Live", type: "Radio", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 68, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "45m ago" },
+  { name: "EWN — Eyewitness News Radio", type: "Radio", status: "Monitoring", provider: "AssemblyAI Universal-2", transcripts: 55, cost: "$3.60/day", retention: "Hot (72h)", lastUpdate: "1h ago" },
 ];
 
 const transcriptSegments = [
@@ -28,31 +28,35 @@ const transcriptSegments = [
   { time: "00:31", text: "The revised AI policy framework, targeted for public comment by January 2027, will address these gaps.", entities: ["AI policy", "January 2027"] },
 ];
 
+/* Real data: SASSA algorithmic grant processing — sourced from Context/TRF (June 2025), IOL (May 2026), Business Day (Feb 2026) */
 const detectedEntities = [
-  { entity: "SASSA", type: "Organization", mentions: 3, confidence: 0.96, constitutional: "Section 33", sentiment: -0.42 },
-  { entity: "AI Policy Framework", type: "Policy", mentions: 2, confidence: 0.94, constitutional: "Section 195", sentiment: -0.18 },
-  { entity: "Algorithmic Decision-Making", type: "Concept", mentions: 2, confidence: 0.91, constitutional: "Section 33, 14", sentiment: -0.55 },
-  { entity: "January 2027", type: "Date", mentions: 1, confidence: 0.99, constitutional: "Section 195", sentiment: 0.0 },
-  { entity: "Grant Applications", type: "Service", mentions: 1, confidence: 0.88, constitutional: "Section 27", sentiment: -0.38 },
+  { entity: "SASSA Automated Means Test", type: "System", mentions: 5, confidence: 0.97, constitutional: "Section 33, 27", sentiment: -0.62, source: "Context by Thomson Reuters Foundation, June 2025" },
+  { entity: "89.7% Erroneous Exclusion Rate", type: "Statistic", mentions: 2, confidence: 0.95, constitutional: "Section 9, 27", sentiment: -0.78, source: "IEJ/Context research survey of 900 respondents" },
+  { entity: "68,000 Grants Suspended", type: "Impact", mentions: 3, confidence: 0.96, constitutional: "Section 27", sentiment: -0.55, source: "IOL, May 25, 2026" },
+  { entity: "Biometric Verification Rollout", type: "System", mentions: 4, confidence: 0.93, constitutional: "Section 14, 33", sentiment: -0.22, source: "TechFinancials, May 4, 2026" },
+  { entity: "98% Appeal Rejection Rate", type: "Statistic", mentions: 2, confidence: 0.94, constitutional: "Section 33, 34", sentiment: -0.81, source: "SASSA data via Context/TRF, 2024 financial year" },
+  { entity: "R1 Billion Fiscal Recovery", type: "Financial", mentions: 1, confidence: 0.91, constitutional: "Section 195", sentiment: 0.15, source: "IOL, May 25, 2026" },
 ];
 
 const evidenceCards = [
-  { entity: "SASSA Algorithmic Processing", source: "SA Parliamentary Audio", provider: "OpenAI gpt-4o-mini-transcribe", confidence: 0.96, constitutionalLink: "Section 33 (Just Administrative Action)", transcript: "...SASSA is using automated systems to flag and reject grant applications without adequate human oversight or appeal mechanisms...", time: "00:22", tier: 5, r2Key: "goodai-raw/2026/06/20/parl-audio/chunk-0022.flac", sha256: "a3f8c1...d92e", retention: "Warm" },
-  { entity: "AI Policy Delay", source: "SA Parliamentary Audio", provider: "OpenAI gpt-4o-mini-transcribe", confidence: 0.94, constitutionalLink: "Section 195 (Public Administration)", transcript: "...the revised AI policy framework, targeted for public comment by January 2027, will address these gaps...", time: "00:31", tier: 4, r2Key: "goodai-raw/2026/06/20/parl-audio/chunk-0031.flac", sha256: "b7d2e4...f18a", retention: "Warm" },
+  { entity: "SASSA Automated Means Test — 89.7% Exclusion", source: "Context by Thomson Reuters Foundation", provider: "OpenAI gpt-4o-mini-transcribe", confidence: 0.97, constitutionalLink: "Section 33 (Just Administrative Action), Section 27 (Social Security)", transcript: "...an IEJ survey of 900 people found only 10.3% of eligible respondents received grants — an erroneous exclusion rate of 89.7%. 80% of rejections were based on the bank verification test, which should only cover 24% of cases...", time: "June 2025", tier: 5, r2Key: "goodai-derived/2025/06/30/context-trf/sassa-algo-analysis.json", sha256: "c4a91b...e73f", retention: "Cold" },
+  { entity: "68,000 Grants Suspended via Biometrics", source: "IOL / Parliament briefing", provider: "OpenAI gpt-4o-mini-transcribe", confidence: 0.96, constitutionalLink: "Section 14 (Privacy), Section 33 (Just Administrative Action)", transcript: "...997,379 beneficiaries biometrically verified since September 2025, with 67,868 grants suspended in Q3 alone. Most non-verification cases driven by unsuccessful facial recognition attempts on online platforms...", time: "May 2026", tier: 5, r2Key: "goodai-derived/2026/05/25/iol/sassa-biometric-suspension.json", sha256: "f2e8a3...b91d", retention: "Warm" },
+  { entity: "AI Policy Withdrawal — Fictitious Citations", source: "Parliament.gov.za / Reuters", provider: "OpenAI gpt-4o-mini-transcribe", confidence: 0.98, constitutionalLink: "Section 195 (Public Administration)", transcript: "...the Portfolio Committee on Communications and Digital Technologies will receive a briefing on the withdrawal of the AI National Policy document, following allegations that portions contained AI-generated content with fictitious and unverifiable sources...", time: "May 2026", tier: 5, r2Key: "goodai-derived/2026/05/26/parliament/ai-policy-withdrawal-briefing.json", sha256: "d1c7b5...a42e", retention: "Cold" },
 ];
 
+/* GoodAI Global production infrastructure — what we build with */
 const techStack = [
-  { layer: "Global API Edge", component: "Workers", role: "Source registration, webhooks, operator API", icon: "\u{2601}\u{FE0F}" },
-  { layer: "Event Buffering", component: "Queues", role: "Decouple ingest, ASR, enrichment, reporting", icon: "\u{1F4E8}" },
-  { layer: "Long Jobs", component: "Workflows", role: "Backfills, report generation, benchmarks", icon: "\u{2699}\u{FE0F}" },
-  { layer: "Coordination", component: "Durable Objects", role: "Per-source cursor, dedup, websocket fan-out", icon: "\u{1F517}" },
-  { layer: "Raw Storage", component: "R2", role: "Immutable media, transcripts, reports ($0.015/GB)", icon: "\u{1F4BE}" },
-  { layer: "Metadata", component: "D1", role: "12-table relational schema, sources to reports", icon: "\u{1F5C3}\u{FE0F}" },
-  { layer: "Search", component: "Vectorize", role: "Transcript embeddings, mention retrieval", icon: "\u{1F50E}" },
-  { layer: "Video UX", component: "Stream", role: "Short replay, clipping, demo playback", icon: "\u{1F3AC}" },
-  { layer: "Media Processing", component: "Containers", role: "FFmpeg probe, mux/demux, OCR helpers", icon: "\u{1F4E6}" },
-  { layer: "Provider Routing", component: "AI Gateway", role: "Retry, fallback, rate limiting, analytics", icon: "\u{1F6E1}\u{FE0F}" },
-  { layer: "GPU Inference", component: "AMD MI300X", role: "ASR, diarization, vLLM, local agent", icon: "\u{1F9E0}" },
+  { layer: "API & Ingestion Layer", component: "Workers", role: "Our source registration, webhooks, and operator API endpoints", icon: "\u{2601}\u{FE0F}" },
+  { layer: "Pipeline Orchestration", component: "Queues", role: "Our event backbone — decoupling ingest, ASR, enrichment, and reporting", icon: "\u{1F4E8}" },
+  { layer: "Background Processing", component: "Workflows", role: "Our backfills, report generation, and nightly benchmarks", icon: "\u{2699}\u{FE0F}" },
+  { layer: "Source Coordination", component: "Durable Objects", role: "Our per-source session state, dedup windows, and live cursors", icon: "\u{1F517}" },
+  { layer: "Evidence Archive", component: "R2", role: "Our immutable media store — raw audio, transcripts, reports ($0.015/GB)", icon: "\u{1F4BE}" },
+  { layer: "Intelligence Database", component: "D1", role: "Our 12-table relational schema — sources, chunks, mentions, reports", icon: "\u{1F5C3}\u{FE0F}" },
+  { layer: "Semantic Search", component: "Vectorize", role: "Our transcript embeddings and mention retrieval engine", icon: "\u{1F50E}" },
+  { layer: "Replay & Review", component: "Stream", role: "Our short-form replay, clip creation, and analyst review interface", icon: "\u{1F3AC}" },
+  { layer: "Media Processing", component: "Containers", role: "Our FFmpeg probe, audio extraction, format normalisation pipeline", icon: "\u{1F4E6}" },
+  { layer: "ASR Provider Routing", component: "AI Gateway", role: "Our provider router — retry, fallback, rate limiting between AMD and managed ASR", icon: "\u{1F6E1}\u{FE0F}" },
+  { layer: "Local AI Inference", component: "AMD MI300X", role: "Our primary ASR, diarization, and LLM summarisation engine", icon: "\u{1F9E0}" },
 ];
 
 export default function IntelligencePage() {
@@ -206,7 +210,7 @@ export default function IntelligencePage() {
               <div className="p-4 border-b flex items-center justify-between" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase font-semibold" style={{ color: 'var(--text-secondary)' }}>SA Parliamentary Committee on AI Governance</h2>
+                  <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase font-semibold" style={{ color: 'var(--text-secondary)' }}>Portfolio Committee on Communications &amp; Digital Technologies — AI Policy Briefing</h2>
                 </div>
                 <div className="flex gap-2">
                   <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded bg-green-500/10 text-green-500">Audio</span>
@@ -217,8 +221,8 @@ export default function IntelligencePage() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-3xl">{"\u{1F3A7}"}</span>
                   <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1">Portfolio Committee on Communications — AI in Government Services</div>
-                    <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Demo Recording &middot; 35 seconds &middot; 16kHz mono PCM &middot; Chunk: 30s storage / 15s inference window</div>
+                    <div className="text-sm font-semibold mb-1">Portfolio Committee on Communications &amp; Digital Technologies — AI Policy Withdrawal Briefing</div>
+                    <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Dramatised demo based on real session of 26 May 2026 (parliament.gov.za) &middot; 35s &middot; 16kHz mono</div>
                   </div>
                 </div>
                 <audio controls className="w-full" style={{ height: '40px' }}>
@@ -259,7 +263,7 @@ export default function IntelligencePage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b" style={{ borderColor: 'var(--border)' }}>
-                      {["Entity", "Type", "Mentions", "Confidence", "Sentiment", "Constitutional"].map((h) => (
+                      {["Entity", "Type", "Mentions", "Confidence", "Sentiment", "Constitutional", "Source"].map((h) => (
                         <th key={h} className={`${h === "Mentions" || h === "Confidence" || h === "Sentiment" ? "text-center" : "text-left"} py-2 font-mono text-[9px] uppercase tracking-wider font-medium`} style={{ color: 'var(--text-muted)' }}>{h}</th>
                       ))}
                     </tr>
@@ -273,6 +277,7 @@ export default function IntelligencePage() {
                         <td className="py-3 text-center font-mono text-green-500">{(e.confidence * 100).toFixed(0)}%</td>
                         <td className="py-3 text-center font-mono" style={{ color: e.sentiment < -0.3 ? '#EF4444' : e.sentiment < 0 ? 'var(--accent-gold)' : 'var(--text-muted)' }}>{e.sentiment.toFixed(2)}</td>
                         <td className="py-3 font-mono text-[11px]" style={{ color: '#818CF8' }}>{e.constitutional}</td>
+                        <td className="py-3 text-[10px] max-w-[180px]" style={{ color: 'var(--text-muted)' }}>{(e as any).source || ""}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -326,8 +331,8 @@ export default function IntelligencePage() {
         {activeTab === "stack" && (
           <div className="space-y-6">
             <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}>
-              <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase mb-1 font-semibold" style={{ color: 'var(--text-secondary)' }}>Technology Stack</h2>
-              <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>Cloudflare-first control plane + AMD GPU inference plane. Every component maps to an official Cloudflare or AMD product.</p>
+              <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase mb-1 font-semibold" style={{ color: 'var(--text-secondary)' }}>GoodAI Global Infrastructure</h2>
+              <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>Our platform architecture for production media intelligence. Cloudflare-first control plane + AMD GPU inference plane.</p>
               <div className="space-y-2">
                 {techStack.map((t) => (
                   <div key={t.layer} className="flex items-center gap-4 p-3 rounded-lg border transition-colors" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
