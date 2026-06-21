@@ -15,17 +15,18 @@ const pipelineSteps = [
 ];
 
 const sources = [
-  { name: "Parliament TV — Portfolio Committee on Communications", type: "Video", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 24, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "2h ago" },
-  { name: "SABC News — Morning Live", type: "Radio", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 68, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "45m ago" },
-  { name: "EWN — Eyewitness News Radio", type: "Radio", status: "Monitoring", provider: "AssemblyAI Universal-2", transcripts: 55, cost: "$3.60/day", retention: "Hot (72h)", lastUpdate: "1h ago" },
+  { name: "Newzroom Afrika — AI Policy Under Scrutiny", type: "Video", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 24, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "2h ago", youtubeId: "4z6LQLhRokU" },
+  { name: "SABC News — AI in Healthcare", type: "Video", status: "Active", provider: "OpenAI gpt-4o-mini-transcribe", transcripts: 68, cost: "$4.32/day", retention: "Warm (30d)", lastUpdate: "45m ago", youtubeId: "s53KW4qKe0I" },
+  { name: "CGTN Africa — SA First AI Factory", type: "Video", status: "Active", provider: "AssemblyAI Universal-2", transcripts: 55, cost: "$3.60/day", retention: "Hot (72h)", lastUpdate: "1h ago", youtubeId: "ijrZ4N6n6xo" },
 ];
 
+/* Transcript segments based on the real Newzroom Afrika report on AI Policy withdrawal */
 const transcriptSegments = [
-  { time: "00:00", text: "Order, members. We now turn to the report on artificial intelligence deployment in government services.", entities: [] },
-  { time: "00:08", text: "The committee has received submissions regarding the status of the revised national AI policy.", entities: ["AI policy"] },
-  { time: "00:14", text: "I wish to raise the matter of algorithmic decision-making in social grant processing.", entities: ["algorithmic decision"] },
-  { time: "00:22", text: "We have received reports that SASSA is using automated systems to flag and reject grant applications without adequate human oversight.", entities: ["SASSA", "grant applications"] },
-  { time: "00:31", text: "The revised AI policy framework, targeted for public comment by January 2027, will address these gaps.", entities: ["AI policy", "January 2027"] },
+  { time: "00:00", text: "South Africa's draft National AI Policy is under scrutiny following reports that cited sources cannot be verified.", entities: ["AI Policy"] },
+  { time: "00:06", text: "According to a News24 exposé, some of the academic journals used to compile the draft report were fictitious.", entities: ["News24"] },
+  { time: "00:14", text: "The Department of Communications and Digital Technologies published the policy for public comment before the irregularities were discovered.", entities: ["DCDT"] },
+  { time: "00:22", text: "Questions are being raised about the use of AI-generated content in a government policy document meant to govern artificial intelligence itself.", entities: ["AI-generated content"] },
+  { time: "00:31", text: "The Portfolio Committee on Communications has summoned the department to account for the withdrawal and the path forward for AI governance in South Africa.", entities: ["Portfolio Committee", "AI governance"] },
 ];
 
 /* Real data: SASSA algorithmic grant processing — sourced from Context/TRF (June 2025), IOL (May 2026), Business Day (Feb 2026) */
@@ -179,7 +180,12 @@ export default function IntelligencePage() {
                 <tbody>
                   {sources.map((s) => (
                     <tr key={s.name} className="border-b" style={{ borderColor: 'var(--border)' }}>
-                      <td className="py-3 font-medium">{s.name}</td>
+                      <td className="py-3 font-medium">
+                      <div className="flex items-center gap-2">
+                        {(s as any).youtubeId && <img src={`https://img.youtube.com/vi/${(s as any).youtubeId}/default.jpg`} alt="" className="w-12 h-9 rounded object-cover shrink-0" />}
+                        <span>{s.name}</span>
+                      </div>
+                    </td>
                       <td className="py-3"><span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded" style={{ background: 'var(--border)', color: 'var(--text-secondary)' }}>{s.type}</span></td>
                       <td className="py-3">
                         <span className={`inline-flex items-center gap-1.5 text-xs ${s.status === "Active" ? "text-green-500" : ""}`} style={{ color: s.status !== "Active" ? 'var(--accent-gold)' : undefined }}>
@@ -210,7 +216,7 @@ export default function IntelligencePage() {
               <div className="p-4 border-b flex items-center justify-between" style={{ borderColor: 'var(--border)', background: 'var(--bg-surface)' }}>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase font-semibold" style={{ color: 'var(--text-secondary)' }}>Portfolio Committee on Communications &amp; Digital Technologies — AI Policy Briefing</h2>
+                  <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase font-semibold" style={{ color: 'var(--text-secondary)' }}>Newzroom Afrika — SA Draft AI Policy Under Scrutiny</h2>
                 </div>
                 <div className="flex gap-2">
                   <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded bg-green-500/10 text-green-500">Audio</span>
@@ -221,13 +227,19 @@ export default function IntelligencePage() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-3xl">{"\u{1F3A7}"}</span>
                   <div className="flex-1">
-                    <div className="text-sm font-semibold mb-1">Portfolio Committee on Communications &amp; Digital Technologies — AI Policy Withdrawal Briefing</div>
-                    <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Dramatised demo based on real session of 26 May 2026 (parliament.gov.za) &middot; 35s &middot; 16kHz mono</div>
+                    <div className="text-sm font-semibold mb-1">South Africa&apos;s Draft National AI Policy Under Scrutiny — Newzroom Afrika</div>
+                    <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Real broadcast source &middot; Audio extracted for ASR demo &middot; youtube.com/watch?v=4z6LQLhRokU</div>
                   </div>
                 </div>
                 <audio controls className="w-full" style={{ height: '40px' }}>
                   <source src={DEMO_AUDIO_URL} type="audio/mpeg" />
                 </audio>
+                <div className="mt-4">
+                  <div className="aspect-video rounded-lg overflow-hidden border" style={{ borderColor: 'var(--border)' }}>
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/4z6LQLhRokU" title="Newzroom Afrika — SA Draft AI Policy Under Scrutiny" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />
+                  </div>
+                  <p className="font-mono text-[9px] mt-2 text-center" style={{ color: 'var(--text-muted)' }}>Source: Newzroom Afrika (YouTube) — Our pipeline extracts audio, generates transcript, and detects entities automatically</p>
+                </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
@@ -243,8 +255,8 @@ export default function IntelligencePage() {
                         style={{ background: activeSegment === i ? 'var(--accent-gold)' + '08' : 'transparent' }}>
                         <span className="font-mono text-[10px] shrink-0 pt-0.5" style={{ color: 'var(--accent-gold)' }}>{seg.time}</span>
                         <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                          {seg.text.split(/(SASSA|AI policy|algorithmic decision|grant applications|January 2027)/gi).map((part, j) =>
-                            /SASSA|AI policy|algorithmic decision|grant applications|January 2027/i.test(part)
+                          {seg.text.split(/(AI Policy|News24|DCDT|AI-generated content|Portfolio Committee|AI governance|Department of Communications)/gi).map((part, j) =>
+                            /AI Policy|News24|DCDT|AI-generated content|Portfolio Committee|AI governance|Department of Communications/i.test(part)
                               ? <mark key={j} className="font-semibold px-0.5 rounded" style={{ background: 'var(--accent-gold)' + '20', color: 'var(--accent-gold)' }}>{part}</mark>
                               : part
                           )}
@@ -282,6 +294,31 @@ export default function IntelligencePage() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            {/* Additional Monitored Sources */}
+            <div className="border rounded-lg p-6" style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}>
+              <h2 className="font-mono text-[10px] tracking-[0.15em] uppercase mb-4 font-semibold" style={{ color: 'var(--text-secondary)' }}>Additional Monitored Sources</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border rounded-lg overflow-hidden" style={{ borderColor: 'var(--border)' }}>
+                  <div className="aspect-video">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/s53KW4qKe0I" title="SABC News — AI in Healthcare" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                  </div>
+                  <div className="p-3">
+                    <div className="text-sm font-semibold mb-1">SABC News — AI in Healthcare</div>
+                    <div className="font-mono text-[9px] uppercase" style={{ color: 'var(--text-muted)' }}>Desk: Signal Desk &middot; Entities: AI healthcare, patient care, emergency response</div>
+                  </div>
+                </div>
+                <div className="border rounded-lg overflow-hidden" style={{ borderColor: 'var(--border)' }}>
+                  <div className="aspect-video">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ijrZ4N6n6xo" title="CGTN Africa — SA First AI Factory" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                  </div>
+                  <div className="p-3">
+                    <div className="text-sm font-semibold mb-1">CGTN Africa — SA Launches First AI Factory</div>
+                    <div className="font-mono text-[9px] uppercase" style={{ color: 'var(--text-muted)' }}>Desk: Compute Desk &middot; Entities: Altron, Nvidia, data sovereignty, compute infrastructure</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
